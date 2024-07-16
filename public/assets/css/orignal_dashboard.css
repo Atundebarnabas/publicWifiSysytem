@@ -1,0 +1,344 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #FFFFFF;
+  --wsh1: rgba(239, 239, 239);
+  --wsh2: #eeeeee;
+  --black: #000000;
+  --bsh1: #111111;
+  --bsh2: #222222;
+  --bsh3: #333333;
+  --serif: "Noto Serif", serif;
+  --sans-serif: "Poppins", sans-serif;
+  --dark-text: #444444;
+  --light-text: #cccccc;
+  --theme-color: linear-gradient(90deg, hsla(145, 84%, 73%, 1) 0%, hsla(150, 61%, 48%, 1) 100%);
+  --gradientpair1: hsla(145, 84%, 73%, 1);
+  --gradientpair2: hsla(150, 61%, 48%, 1);
+  --grey-text: darkgray;
+  --icon-light: #666666;
+  --error: crimson;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  background: var(--wsh2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.container {
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.welcome_txt {
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+  /* background: rebeccapurple; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome_txt span {
+  font-size: 3rem;
+  font-family: var(--sans-serif);
+  font-weight: 550;
+  color: var(--dark-text);
+}
+
+.wrapped_cont {
+  height: auto;
+  width: 400px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0px;
+  align-items: center;
+  gap: 16px;
+}
+
+.wrapped_cont ul {
+  height: auto;
+  /* background: red; */
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 24px;
+  padding: 10px 14px;
+}
+
+.wrapped_cont ul .title_sec {
+  height: auto;
+  width: 100%;
+  /* background: lawngreen; */
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 8px;
+}
+
+.title_sec .iconvg {
+  padding: 24px;
+  width: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconvg svg {
+  height: 70%;
+  width: 70%;
+  position: absolute;
+  stroke: var(--bsh2);
+}
+
+.title_sec .txt {
+  font-family: var(--sans-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--dark-text);
+}
+
+.wrapped_cont ul li {
+  list-style: none;
+  width: 100%;
+  height: auto;
+  /* background: green; */
+  padding: 4px 8px;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.wrapped_cont ul li .left {
+  width: fit-content;
+  height: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wrapped_cont ul li .left .icon {
+  padding: 16px;
+  width: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: red; */
+}
+
+.wrapped_cont ul li .left .icon svg {
+  height: 70%;
+  width: 70%;
+  position: absolute;
+  stroke: var(--icon-light);
+  stroke-width: 2;
+}
+
+.wrapped_cont ul li .left .title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: var(--sans-serif);
+  color: var(--icon-light);
+}
+
+.wrapped_cont ul li .right {
+  width: fit-content;
+  height: auto;
+  /* background: greenyellow; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapped_cont ul li .right span {
+  font-size: 1.1rem;
+  padding-left: 10px;
+  color: var(--dark-text);
+  font-family: var(--sans-serif);
+  font-weight: 500;
+}
+
+.lg_out_btn {
+  max-width: 230px;
+  height: auto;
+  /* background: red; */
+  width: fit-content;
+}
+
+.lg_out_btn button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #ffffff, #dddddd);
+  border: 1px solid #ecec;
+  box-shadow: 0px 8px 14px 3px rgba(255 0 0 / 8%);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.4s ease-in;
+}
+
+.lg_out_btn button:hover {
+  box-shadow: 0px 16px 24px rgba(255 0 0 / 24%);
+}
+
+.lg_out_btn button .icon {
+  padding: 16px;
+  width: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lg_out_btn button .icon svg {
+  height: 70%;
+  width: 70%;
+  stroke: var(--error);
+  stroke-width: 1.5;
+  position: absolute;
+}
+
+.lg_out_btn button .txt {
+  font-size: 1.1rem;
+  font-family: var(--sans-serif);
+  font-weight: 500;
+  color: var(--error);
+  width: fit-content;
+  height: auto;
+}
+
+/* 2xl */
+@media (max-width: 1536px) {
+  body {
+    /* height: 100%; */
+    /* background: peru; */
+  }
+  .container {
+    max-width: 1280px;
+    /* background: red; */
+    /* background: transparent; */
+  }
+}
+
+/* xl */
+@media (max-width: 1280px) {
+  body {
+    /* background: gray; */
+  }
+  .container {
+    max-width: 1024px;
+    /* background: gray; */
+  }
+}
+
+/* lg */
+@media (max-width: 1024px) {
+  body {
+    /* background: crimson; */
+  }
+  .container {
+    max-width: 768px;
+    /* background: crimson; */
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape)
+{
+  /* body {
+    height: 100%;
+  }
+  .icon_image_container .i_img {
+    padding: 20px;
+  }
+  .txt_wel_note span {
+    font-size: 20px;
+  }
+  .descriptive_txt_note span {
+    font-size: 14px;
+  }
+  .right_portion {
+    margin-top: 40px;
+  } */
+}
+
+/* md */
+@media (max-width: 768px) {
+  body {
+    /* background: fuchsia; */
+  }
+  .container {
+    max-width: 640px;
+    /* background: fuchsia; */
+  }
+}
+
+
+/* sm */
+@media (max-width: 640px) {
+  body {
+    /* background: aquamarine; */
+  }
+  .container {
+    max-width: 475px;
+    /* background: aquamarine; */
+  }
+}
+
+/* xs */
+@media (max-width: 475px) {
+  body {
+    /* height: 100%; */
+    /* background: var(--wsh2); */
+    width: 100%;
+  }
+  .container {
+    width: 100%;
+    max-width: 100%;
+    /* background: rebeccapurple; */
+  }
+  .welcome_txt span {
+    font-size: 1.6rem;
+  }
+  .wrapped_cont {
+    width: 100%;
+  }
+  .wrapped_cont ul {
+    width: 95%;
+  }
+  .wrapped_cont ul li .left .title {
+    font-size: 1.02rem;
+  }
+  .wrapped_cont ul li .right span {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 320px){
+  body {
+    height: 100%;
+    background: red;
+  }
+}

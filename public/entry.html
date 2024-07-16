@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public | Wifi</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <style>
+    svg {stroke: #eeeeee;}
+    .icon_image_container .i_img{
+      background: #333333;
+    }
+  </style>
+</head>
+<body style="background: #000;color: #ffffff;">
+  <main class="container" id="loginSection">
+    <form id="planDone" style="background: #121212;">
+      <div class="left_portion">
+        <div class="icon_image_container">
+          <div class="i_img">
+            <!-- Title: “Calendar SVG Vector”
+										Author: “Iconsax“— https://www.svgrepo.com/author/Iconsax/
+										Source: “svgrepo.com“— https://www.svgrepo.com/
+										License: “MIT License”— https://www.svgrepo.com/page/licensing#MIT 
+						-->
+            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 2V5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 2V5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.5 9.08997H20.5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15.6947 13.7H15.7037" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15.6947 16.7H15.7037" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11.9955 13.7H12.0045" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11.9955 16.7H12.0045" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.29431 13.7H8.30329" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.29431 16.7H8.30329" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="text_content">
+          <div class="txt_wel_note">
+            <span style="background: var(--theme-color);-webkit-text-fill-color: transparent;-webkit-background-clip: text;">Quick tap, plan snap!</span>
+          </div>
+          <div class="descriptive_txt_note">
+            <span style="color: #eeeeee;">Select a <b>plan</b> to continue</span>
+          </div>
+        </div>
+      </div>
+      <div class="right_portion">
+        <div class="all_inputs_fields">
+          <div class="error_parent">
+            <span class="errMsg"></span>
+          </div>
+
+          <div class="plan_done">
+            <div class="plan_btn">
+              <button class="pla_d" data-type="Daily">
+                <span>Daily plan</span>
+              </button>
+            </div>
+            <div class="plan_btn">
+              <button class="pla_d" data-type="Weekly">
+                <span>Weekly plan</span>
+              </button>
+            </div>
+            <div class="plan_btn">
+              <button class="pla_d" data-type="Monthly">
+                <span>Monthly plan</span>
+              </button>
+            </div>
+          </div>
+
+
+          <input type="text" name="loginId" id="loginId" hidden>
+          <input type="text" name="passKey" id="passKey" hidden>
+        </div>
+      </div>
+    </form>
+  </main>
+  <div class="accnt_info">
+    <div class="modal">
+      <div class="head">
+        <span>Account created successfully👌🏽</span>
+      </div>
+      <div class="body">
+        <ul>
+          <div class="cont_title">
+            <span>Account Plan</span>
+          </div>
+          <div class="cont_body">
+            <li>
+              <div class="title">Plan type:</div>
+              <div class="val" id="m_plan"></div>
+            </li>
+          </div>
+        </ul>
+        <ul>
+          <div class="cont_title">
+            <span>Login Details</span>
+          </div>
+          <div class="cont_body">
+            <li>
+              <div class="title">Login ID:</div>
+              <div class="val" id="m_loginid"></div>
+            </li>
+            <li>
+              <div class="title">PassKey:</div>
+              <div class="val" id="m_passkey"></div>
+            </li>
+          </div>
+        </ul>
+        <ul>
+          <div class="cont_title">
+            <span>Account Timeline</span>
+          </div>
+          <div class="cont_body">
+            <li>
+              <div class="title">Date created:</div>
+              <div class="val" id="date_created"></div>
+            </li>
+            <li>
+              <div class="title">Expiry Date:</div>
+              <div class="val" id="expiry_date"></div>
+            </li>
+          </div>
+        </ul>
+      </div>
+      <div class="foot">
+        <div class="cls_btn">
+          <button class="close_modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      function formatDateTime(date)
+      {
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1; // Months are zero-based
+        let day = date.getDate();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+        let milliSeconds = date.getMilliseconds();
+        let ampm = hours >= 12 ? 'p.m' : 'a.m';
+        hours = hours ? hours : 12; // The hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        milliSeconds = milliSeconds < 10 ? '0' + milliSeconds : milliSeconds;
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} ${ampm}`;
+      }
+
+      function formatTime(when)
+      {
+        const year = when.getFullYear();
+        const month = when.getMonth() + 1; // Adding 1 because getMonth() returns zero-based index
+        const day = when.getDate();
+        const hours = when.getHours();
+        const minutes = when.getMinutes();
+        const seconds = when.getSeconds();
+        const milliSeconds = when.getMilliseconds();
+        const formattedMilliseconds = ('00' + milliSeconds).slice(-2); // Ensures milliseconds are always two digits
+
+        // Constructing the formatted string
+        const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}${seconds}:${formattedMilliseconds}`;
+        return formattedDate;
+      }
+
+      function calculateDaily()
+      {
+        let expirationTime = new Date();
+        expirationTime.setDate(expirationTime.getDate() + 1);
+        expirationTime.setHours(10, 0, 0, 0);
+        return formatTime(expirationTime);
+      }
+
+      function calculateWeekly()
+      {
+        let expirationTime = new Date();
+        expirationTime.setDate(expirationTime.getDate() + 7);
+        expirationTime.setHours(10, 0, 0, 0);
+        return formatTime(expirationTime);
+      }
+
+      function calculateMonthly()
+      {
+        let expirationTime = new Date();
+        expirationTime.setMonth(expirationTime.getMonth() + 1);
+        expirationTime.setHours(10, 0, 0, 0);
+        return formatTime(expirationTime);
+      }
+
+      const planbuttons = document.querySelectorAll('.pla_d');
+
+      for(let i=0; i<planbuttons.length; i++)
+      {
+          let currentBtn = planbuttons[i];
+          if(currentBtn.dataset.type.includes('Daily'))
+          {
+            currentBtn.setAttribute('data-expiration', calculateDaily());
+          }
+          else if(currentBtn.dataset.type.includes('Weekly'))
+          {
+            currentBtn.setAttribute('data-expiration', calculateWeekly());
+          }
+          else if(currentBtn.dataset.type.includes('Monthly'))
+          {
+            currentBtn.setAttribute('data-expiration', calculateMonthly());
+          }
+
+
+          currentBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            // Sending data to the database
+            let loginId = document.getElementById('loginId');
+            let passKey = document.getElementById('passKey');
+
+            // Get the values from the dataset
+            let loginIdValue, passKeyValue, dataType, dataExpiration;
+
+            dataLoginId = loginId.getAttribute('data-loginid');
+            dataPassKey = passKey.getAttribute('data-passkey');
+            dataType = currentBtn.getAttribute('data-type');
+            dataExpiration = currentBtn.getAttribute('data-expiration');
+
+
+            // Prepare data to send to server
+
+            const data = {
+              loginId: dataLoginId,
+              passKey: dataPassKey,
+              type: dataType,
+              expiration: dataExpiration
+            };
+
+            // Send data to server using the fetch API (POST request)
+            fetch('/registerPeople', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            })
+            .then(response => {
+              if(!response.ok)
+              {
+                throw new Error('Network response was not okay');
+              }
+              return response.json();
+            })
+            .then(data => {
+              console.log('Data sent to server:', data);
+              // Fix details into the modal
+              let m_loginId = document.getElementById('m_loginid');
+              let m_passKey = document.getElementById('m_passkey');
+              let m_plan = document.getElementById('m_plan');
+              let m_dateCreated = document.getElementById('date_created');
+              let m_expiryDate = document.getElementById('expiry_date');
+
+              m_plan.textContent = dataType;
+              m_loginId.textContent = dataLoginId;
+              m_passKey.textContent = dataPassKey;
+              m_dateCreated.textContent = formatDateTime(new Date());
+              m_expiryDate.textContent = formatDateTime(new Date(dataExpiration));
+
+              // Function to hide modal
+              const hideModal =  () => {
+                accnt_info_modal.classList.remove('active');
+                const url = new URL(window.location.href);
+                url.search = '';
+                url.hash = '';
+
+                // Replace the state with the modified URL
+                window.history.replaceState(null, null, url.toString());
+              };
+
+              // Show modal here
+              var id =  dataLoginId;
+              var i = this;
+
+              let accnt_info_modal = document.querySelector('.accnt_info');
+              accnt_info_modal.classList.add('active');
+              window.history.pushState({id:dataType}, null, "?TG.done=" + '#' + dataType);
+              window.addEventListener('popstate', hideModal);
+              fetchCredentials();
+
+              // Close the accnt_info modal
+              let closeBtn = document.querySelector('.close_modal');
+              closeBtn.addEventListener('click', hideModal);
+            })
+          });
+      }
+    });
+  </script>
+  <script>
+    // Function to fetch credentials and update the span tags
+    async function fetchCredentials() {
+      try {
+        const response = await fetch('/cred');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        document.getElementById('loginId').value = data.loginId;
+        document.getElementById('loginId').setAttribute('data-loginid', data.loginId);
+        document.getElementById('passKey').value = data.passKey;
+        document.getElementById('passKey').setAttribute('data-passkey', data.passKey);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    }
+
+    // Fetch credentials when the page loads
+    window.onload = fetchCredentials;
+  </script>
+</body>
+</html>
