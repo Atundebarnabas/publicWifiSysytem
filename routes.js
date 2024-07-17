@@ -23,67 +23,38 @@ router.use(cors());
 // Serve static files (index.html and client-side JavaScript)
 router.use(express.static(path.join(__dirname, 'public')));
 
-function getServerMacAddress() {
+// Function to get server's own MAC address
+async function getServerMacAddress() {
   return new Promise((resolve, reject) => {
-    const command = 'wmic nic where "NetConnectionID=\'Wi-Fi\'" get MACAddress';
-
-    exec(command, (error, stdout, stderr) => {
+    exec('getmac', (error, stdout, stderr) => {
       if (error) {
-        console.error(`Error executing command: ${command}`, error);
-        reject(error);
+        console.error(`Error getting server MAC address: ${error.message}`);
+        reject('Error retrieving server MAC address');
         return;
       }
       if (stderr) {
-        console.error(`Command error: ${stderr}`);
-        reject(stderr);
+        console.error(`stderr: ${stderr}`);
+        reject('Error retrieving server MAC address');
         return;
       }
-
-      // Parse the stdout to find the MAC address
-      const lines = stdout.split('\n').map(line => line.trim());
-      // Assuming the MAC address is the second line (index 1) after headers
-      const macAddress = lines[1]; // Adjust index based on output format
-
-      if (!macAddress) {
-        reject(new Error('MAC address not found in command output'));
-      } else {
-        resolve(macAddress.replace(/[:-]/g, '-')); // Normalize MAC address format
-      }
+      const macMatch = stdout.match(/([0-9A-Fa-f]{2}-){5}[0-9A-Fa-f]{2}/);
+      resolve(macMatch ? macMatch[0] : null);
     });
   });
 }
 
+// Function to get server's own IP address
 function getServerIpAddress() {
   const interfaces = os.networkInterfaces();
-  for (const interfaceName in interfaces) {
-    const addresses = interfaces[interfaceName];
-    for (const address of addresses) {
-      if (address.family === 'IPv4' && !address.internal) {
-        return address.address;
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
       }
     }
   }
   return '127.0.0.1';
 }
-
-// Endpoint to fetch server IP address
-router.get('/api/server-info', (req, res) => {
-  // Get the server's IPv4 address
-  const interfaces = os.networkInterfaces();
-  let serverIpAddress = '';
-  
-  Object.keys(interfaces).forEach((iface) => {
-    interfaces[iface].forEach((details) => {
-      if (details.family === 'IPv4' && !details.internal) {
-        serverIpAddress = details.address;
-      }
-    });
-  });
-
-  const serverPort = process.env.PORT || 3000; // Default to port 3000 if PORT env variable is not set
-
-  res.json({ serverIpAddress, serverPort });
-});
 
 router.get('/api/mac-addresses', async (req, res) => {
   try {
@@ -93,13 +64,13 @@ router.get('/api/mac-addresses', async (req, res) => {
     const arpTable = await new Promise((resolve, reject) => {
       exec('arp -a', (error, stdout, stderr) => {
         if (error) {
-          console.error(`Error: ${error.message}`);
-          reject('Error retrieving MAC addresses');
+          console.error(`Error retrieving MAC addresses: ${error.message}`);
+          reject(`Error retrieving MAC addresses: ${error.message}`);
           return;
         }
         if (stderr) {
           console.error(`stderr: ${stderr}`);
-          reject('Error retrieving MAC addresses');
+          reject(`Error retrieving MAC addresses: ${stderr}`);
           return;
         }
         resolve(stdout);
@@ -118,7 +89,11 @@ router.get('/api/mac-addresses', async (req, res) => {
     const serverIp = getServerIpAddress();
 
     // Add server's address to the list
-    macAddresses.push({ ip: serverIp, mac: serverMac });
+    if (serverMac && serverIp) {
+      macAddresses.push({ ip: serverIp, mac: serverMac });
+    } else {
+      console.error('Unable to retrieve server MAC or IP address');
+    }
 
     // Client IP (you may adjust based on your setup)
     const clientIp = req.headers['x-forwarded-for'] || (req.connection.remoteAddress && req.connection.remoteAddress.replace(/^.*:/, '')) || '';
@@ -128,6 +103,7 @@ router.get('/api/mac-addresses', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
 
 
 // Route to serve index.html for /addrs
